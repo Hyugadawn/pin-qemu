@@ -115,7 +115,7 @@ IMG级API是以二进制可执行文件为插桩对象设计实现的API，每�
 
 ## 参考资料
 
-[参考库](https://github.com/foxsen/qemu-instrument/tree/instru)
+[qemu-instrument](https://github.com/foxsen/qemu-instrument/tree/instru)
 
 
 
