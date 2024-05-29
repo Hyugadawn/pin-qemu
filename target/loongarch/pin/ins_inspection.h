@@ -12,8 +12,11 @@ BBL TRACE_BblHead(TRACE trace);
 BBL TRACE_BblTail(TRACE trace);
 UINT32 TRACE_NumBbl(TRACE trace);
 UINT32 TRACE_NumIns(TRACE trace);
+//2024.1.25
+ADDRINT TRACE_Address(TRACE trace);
+USIZE TRACE_Size(TRACE trace);
 RTN TRACE_Rtn(TRACE trace);
-BOOL TRACE_HasFallThrough(TRACE trace);
+BOOL TRACE_HasFallThrough (TRACE trace);
 
 
 UINT32 BBL_NumIns(BBL bbl);

@@ -31,6 +31,16 @@ UINT32 TRACE_NumIns(TRACE trace)
 {
     return trace->nr_ins;
 }
+//2024.1.25
+ADDRINT TRACE_Address(TRACE trace)
+{
+    return trace->bbl_head->ins_head->pc;
+}
+
+USIZE TRACE_Size(TRACE trace)
+{
+    return 4*trace->nr_ins;
+}
 
 RTN TRACE_Rtn(TRACE trace)
 {
@@ -41,10 +51,10 @@ RTN TRACE_Rtn(TRACE trace)
     return rtn;
 }
 
-BOOL TRACE_HasFallThrough(TRACE trace)
+BOOL TRACE_HasFallThrough (TRACE trace)
 {
     IR2_OPCODE op = trace->bbl_tail->ins_tail->origin_ins->op;
-    if (op_is_branch(op) && !op_is_condition_branch(op))
+    if ((op_is_branch(op) && !op_is_condition_branch(op))|| op_is_syscall(op))
         return false;
     return true;
 }

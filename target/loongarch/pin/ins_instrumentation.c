@@ -1468,7 +1468,9 @@ VOID TRACE_InsertCall(TRACE trace, IPOINT ipoint, AFUNPTR funptr, ...)
     {
         INS last = trace->bbl_tail->ins_tail;
         Ins *cur = ins_get_next_cb_position(last, ipoint);
-        insert_callback(last, cur, &cb);
+        Ins *nop = ins_nop();
+        INS_insert_ins_after(last,cur,nop);
+        insert_callback(last, nop, &cb);
     }
     else
     {
@@ -1477,11 +1479,33 @@ VOID TRACE_InsertCall(TRACE trace, IPOINT ipoint, AFUNPTR funptr, ...)
         {
             INS to_insert=now->ins_tail;
             Ins *cur = ins_get_next_cb_position(to_insert, ipoint);
-            insert_callback(to_insert, cur, &cb);
+            Ins *nop = ins_nop();
+            INS_insert_ins_after(to_insert,cur,nop);
+            insert_callback(to_insert, nop, &cb);
             now = now->next;
         }
     }
 }
+
+//2024.5.10
+static void trace_insertthencallmid(INS ins, Ins *cur, ANALYSIS_CALL *cb)
+{
+    Ins *beqz = ins_create_2(LISA_BEQZ, reg_a0, 0);     // 后面会修正beqz的offset
+    INS_insert_ins_before(ins, cur, beqz);
+
+    /* 3. Then Call */
+    insert_callback(ins, cur,cb);
+    
+    /* 修正jmp,beqz跳过的指令数 */
+    int offset = 0;
+    Ins *i = beqz;
+    while (i != cur) {
+            ++offset;
+            i = i->next;
+        }
+    beqz->opnd[1].val = offset;
+}
+
 
 VOID TRACE_InsertIfCall(TRACE trace, IPOINT ipoint, AFUNPTR funptr, ...)
 {
@@ -1494,7 +1518,7 @@ VOID TRACE_InsertIfCall(TRACE trace, IPOINT ipoint, AFUNPTR funptr, ...)
     va_end(valist);
 }
 
-VOID TRACE_InsertThenCall(TRACE trace, IPOINT ipoint, AFUNPTR funptr, ...)
+VOID TRACE_InsertThenCall (TRACE trace, IPOINT ipoint, AFUNPTR funptr, ...)
 {
     lsassertm(PIN_instru_ctx.trace_if_call_valid == true && PIN_instru_ctx.trace_if_call_cb.ipoint == ipoint, "should call TRACE_InsertIfCall before TRACE_InsertThenCall\n");
     ANALYSIS_CALL *if_cb = &PIN_instru_ctx.trace_if_call_cb;
@@ -1505,29 +1529,37 @@ VOID TRACE_InsertThenCall(TRACE trace, IPOINT ipoint, AFUNPTR funptr, ...)
     ANALYSIS_CALL then_cb = parse_iarg(IOBJECT_TRACE, ipoint, funptr, valist);
     va_end(valist);
 
-    INS INS = trace->bbl_head->ins_head;
-    Ins *cur = get_next_cb_position(INS, ipoint);
-    /* 1. If Call */
-    insert_callback(INS, cur, if_cb);
-
-    /* 2. 根据ifCall的返回值，决定是否执行thenCall */
-    Ins *beqz = ins_create_2(LISA_BEQZ, reg_a0, 0);     // 后面会修正beqz的offset
-    INS_insert_ins_before(INS, cur, beqz);
-
-    /* 3. Then Call */
-    insert_callback(INS, cur, &then_cb);
-    
-    /* 修正beqz跳过的指令数 */
+    //2024.4.18
+    if(ipoint == IPOINT_BEFORE || ipoint == IPOINT_ANYWHERE)
     {
-        int offset = 0;
-        Ins *i = beqz;
-        while (i != cur) {
-            ++offset;
-            i = i->next;
-        }
-        beqz->opnd[1].val = offset;
+        INS first = trace->bbl_head->ins_head;
+        Ins *cur = ins_get_next_cb_position(first, ipoint);
+        insert_callback(first, cur, if_cb);
+        trace_insertthencallmid(first,cur,&then_cb);
     }
-    trace->bbl_head->is_original = false;
+    else if(ipoint == IPOINT_AFTER)
+    {
+        INS last = trace->bbl_tail->ins_tail;
+        Ins *cur = ins_get_next_cb_position(last, ipoint);
+        Ins *nop=ins_nop();
+        INS_insert_ins_after(last,cur,nop);
+        insert_callback(last, nop, if_cb);
+        trace_insertthencallmid(last,nop,&then_cb);
+    }
+    else
+    {
+        BBL now = trace->bbl_head;
+        for(int i=0;i < trace->nr_bbl;i++)
+        {
+            INS to_insert=now->ins_tail;
+            Ins *cur = ins_get_next_cb_position(to_insert, ipoint);
+            Ins *nop=ins_nop();
+            INS_insert_ins_after(to_insert,cur,nop);
+            insert_callback(to_insert, cur, if_cb);
+            trace_insertthencallmid(to_insert,nop,&then_cb);
+            now = now->next;
+        }
+    }   
 }
 
 
