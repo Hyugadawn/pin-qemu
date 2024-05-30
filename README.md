@@ -141,6 +141,7 @@ IMG级API是以二进制可执行文件为插桩对象设计实现的API，每�
 <br />✅ VOID BBL_InsertCall(BBL bbl, IPOINT action, AFUNPTR funptr, ...)
 <br />✅ VOID BBL_InsertIfCall (BBL bbl, IPOINT action, AFUNPTR funptr,...)
 <br />✅ VOID BBL_InsertThenCall (BBL bbl, IPOINT action, AFUNPTR funptr,...)
+
 <br />✅ UINT32 BBL_NumIns(BBL bbl)
 <br />✅ INS BBL_InsHead(BBL x)
 <br />✅ INS BBL_InsTail(BBL x)
@@ -158,6 +159,7 @@ IMG级API是以二进制可执行文件为插桩对象设计实现的API，每�
 <br />✅ VOID TRACE_InsertCall(TRACE trace, IPOINT action, AFUNPTR funptr, ...)
 <br />✅ VOID TRACE_InsertIfCall (TRACE trace, IPOINT action, AFUNPTR funptr,...)
 <br />✅ VOID TRACE_InsertThenCall (TRACE trace, IPOINT action, AFUNPTR funptr,...)
+
 <br />✅ BBL TRACE_BblHead(TRACE trace)
 <br />✅ BBL TRACE_BblTail(TRACE trace)
 <br />✅ UINT32 TRACE_NumBbl(TRACE trace)
@@ -169,6 +171,7 @@ IMG级API是以二进制可执行文件为插桩对象设计实现的API，每�
 
 #### RTN级
 <br />✅ VOID RTN_InsertCall(RTN rtn, IPOINT action, AFUNPTR funptr, ...)
+
 <br />✅ IMG RTN_Img(RTN rtn)
 <br />✅ RTN RTN_Next(RTN rtn)
 <br />✅ RTN RTN_Prev(RTN rtn)
@@ -188,6 +191,7 @@ IMG级API是以二进制可执行文件为插桩对象设计实现的API，每�
 #### IMG级
 
 <br />✅ VOID IMG_AddInstrumentFunction(IMAGECALLBACK fun, VOID *val)
+
 <br />✅ IMG IMG_Next(IMG img)
 <br />✅ IMG IMG_Prev(IMG img)
 <br />✅ IMG IMG_Invalid(void)
