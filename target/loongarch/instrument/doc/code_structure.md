@@ -24,14 +24,14 @@ lisa_reg_access_table[]   // 指令中各操作数对寄存器的读写情况
 ## 符号解析
 该模块主要用于获取.so文件对应的ELF文件中的Symbol，通过解析Symbol从而完成RTN的收集
 主要函数包括：
-'''c
+```c
 /* === new_elf_parser.c === */
 // 解析ELF文件，收集RTN
 void parse_elf_symbol(const char* pathname, uint64_t map_base, IMG *pp_img)
 /* === symbols.c === */
 //将RTN添加到IMG中
 void image_add_symbol(IMG image, const char * name, uint64_t addr, uint64_t size)
-'''
+```
 
 ## 翻译部分
 核心代码在：
@@ -168,7 +168,7 @@ INS、BBL、TRACE、RTN级插桩型API
 RTN、IMG级信息检查型API
 
 （4）pin_state.h
-'''
+```c
 PIN_STATE PIN_state //插桩状态结构体
 PIN_INSTRU_CONTEXT PIN_instru_ctx //插桩标志结构体
 //申明INS级插桩函数
@@ -177,7 +177,7 @@ void INS_instrument(INS ins);
 void TRACE_instrument(TRACE trace);
 //申明IMG级插桩函数
 void IMG_instrument(IMG img);
-'''
+```
 
 （5）loader.c
 加载插桩工具
