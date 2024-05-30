@@ -22,7 +22,14 @@ bit_field_table[]       // 操作数(rd, rk, rk) -> 操作数所在位域
 lisa_reg_access_table[]   // 指令中各操作数对寄存器的读写情况
 ```
 ## 符号解析
-该模块主要用于获取.so文件对应的ELF文件中的Symbol，通过解析Symbol从而完成RTN的收集，主要函数包括：
+该模块主要用于获取.so文件对应的ELF文件中的Symbol，通过解析Symbol从而完成RTN的收集。
+
+### RTN，IMG
+1. Symbols包含了与动态链接相关的所有符号，Symbols包含了所有需要的RTN
+2. RTN是程序执行用到的函数
+3. 一个.so文件对应一个IMG，一个IMG有多个RTN
+
+### 主要函数：
 ```c
 /* === new_elf_parser.c === */
 // 解析ELF文件，收集RTN
@@ -36,6 +43,18 @@ void image_add_symbol(IMG image, const char * name, uint64_t addr, uint64_t size
 核心代码在：
 - 主流程：target/loongarch/instrument/instrument.c
 - 翻译：target/loongarch/instrument/translate.c
+
+### ins_list结构
+1. 全局变量 `tr_data` 保存了翻译时的信息，其中最主要的是 `ins_list`。
+2. 翻译生成的指令序列放到 `ins_list` 链表中，最后由 `la_encode` 生成最终的二进制代码。
+
+### INS, BBL, TRACE
+为了方便插桩，不直接对 `ins_list` 操作：
+1. 一条LA ins，被翻译/插桩后变为多条指令，放在一个 `INS` 结构体中
+2. 多条 `INS` 构成一个 `BBL` 基本块
+3. 多个`BBL`构成一个`TRACE`翻译块
+4. `la_encode` 根据 `tr_data.trace` 遍历指令链表，生成最终二进制
+5. `la_encode` 也可以直接根据 `ins_list` 来生成二进制
 
 ### 翻译块的生成流程
 ```
@@ -91,20 +110,6 @@ extern uint64_t context_switch_native_to_bt;
 int la_gen_prologue(CPUState *cs, TCGContext *tcg_ctx);
 int la_gen_epilogue(CPUState *cs, TCGContext *tcg_ctx);
 ```
-
-### ins_list结构
-1. 全局变量 `tr_data` 保存了翻译时的信息，其中最主要的是 `ins_list`。
-2. 翻译生成的指令序列放到 `ins_list` 链表中，最后由 `la_encode` 生成最终的二进制代码。
-
-
-### INS, BBL, TRACE
-为了方便插桩，不直接对 `ins_list` 操作：
-1. 一条LA ins，被翻译/插桩后变为多条指令，放在一个 `INS` 结构体中
-2. 多条 `INS` 构成一个 `BBL` 基本块
-3. 多个`BBL`构成一个`TRACE`翻译块
-4. `la_encode` 根据 `tr_data.trace` 遍历指令链表，生成最终二进制
-5. `la_encode` 也可以直接根据 `ins_list` 来生成二进制
-
 
 ### 插入指令
 示例
