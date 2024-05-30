@@ -258,15 +258,12 @@ static VOID Image(IMG img, VOID* v)
         RTN_InsertCall(freeRtn, IPOINT_BEFORE, (AFUNPTR)Arg1Before, IARG_ADDRINT, "free", IARG_FUNCARG_ENTRYPOINT_VALUE, 0, IARG_END);
         RTN_Close(freeRtn);
     }
-
 }
  
-
 static INT32 Usage(void)
 {
     return -1;
 }
- 
 
 int main(int argc, char* argv[])
 {
