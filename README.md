@@ -14,7 +14,7 @@
 
 * **[初赛项目文档](target/loongarch/instrument/doc/code_structure.md)**
 * **[代码结构](target/loongarch/instrument/doc/code_structure.md)**
-* **[插桩工具教程](target/loongarch/instrument/doc/eazy_pintool.mddoc/run_test.md)**
+* **[插桩工具教程](target/loongarch/instrument/doc/eazy_pintool.md)**
 * **[框架编译和使用](target/loongarch/instrument/doc/how_to_build.md)**
 
 
