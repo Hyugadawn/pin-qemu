@@ -22,8 +22,7 @@ bit_field_table[]       // 操作数(rd, rk, rk) -> 操作数所在位域
 lisa_reg_access_table[]   // 指令中各操作数对寄存器的读写情况
 ```
 ## 符号解析
-该模块主要用于获取.so文件对应的ELF文件中的Symbol，通过解析Symbol从而完成RTN的收集
-主要函数包括：
+该模块主要用于获取.so文件对应的ELF文件中的Symbol，通过解析Symbol从而完成RTN的收集，主要函数包括：
 ```c
 /* === new_elf_parser.c === */
 // 解析ELF文件，收集RTN
@@ -45,13 +44,13 @@ tb_gen_code()
     la_decode(cpu, tb, max_insns):
       bbl = BBL_alloc(pc);
       trace = TRACE_alloc(pc);
-		  while(1)
-		    uint32_t opcode = read_opcode(cs, pc);
+      while(1)
+        uint32_t opcode = read_opcode(cs, pc);
         origin_ins = ins_alloc();
 			  la_disasm(opcode, origin_ins);
         INS = INS_alloc(pc, opcode, origin_ins);
-			  INS_translate(cs, INS);
-			  INS_instrument(INS);
+        INS_translate(cs, INS);
+        INS_instrument(INS);
         BBL_append_INS(bbl,INS);
         if(op_is_condition_branch(op))
         {
@@ -156,15 +155,16 @@ reg_free_itemp(itemp)
 
 ## 指令插桩
 
-1. target/loongarch/pin/pintools中包含了编写的插桩工具
-2. 主要代码文件的内容
-(1) ins_inspection.c
+* target/loongarch/pin/pintools中包含了编写的插桩工具
+* 主要代码文件的内容
+
+（1） ins_inspection.c
 INS、BBl、TRACE级信息检查型API
 
-(2)ins_instrumentation.c
+（2）ins_instrumentation.c
 INS、BBL、TRACE、RTN级插桩型API
 
-(3)symbols.c
+（3）symbols.c
 RTN、IMG级信息检查型API
 
 （4）pin_state.h
