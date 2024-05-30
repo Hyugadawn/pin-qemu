@@ -5,7 +5,7 @@
 
 我们队伍名称为啥啥都队，来自中国科学技术大学，基本情况如下：
 
-| 赛题     | proj333：基于Qemu的龙架构平台高性能插桩工具 |
+| 赛题     | proj333——基于Qemu的龙架构平台高性能插桩工具 |
 | -------- | ------------------------------------------- |
 | 小组成员 | 高林萍、穆奕博、陈曦                        |
 | 指导老师 | 徐伟、卢建良                                |
@@ -113,6 +113,7 @@ IMG级API是以二进制可执行文件为插桩对象设计实现的API，每�
 ## 参考资料
 
 [qemu-instrument](https://github.com/foxsen/qemu-instrument/tree/instru)
+[Loongarch Docs](https://github.com/loongson/LoongArch-Documentation)龙芯相关手册
 
 
 
