@@ -47,7 +47,7 @@ tb_gen_code()
       while(1)
         uint32_t opcode = read_opcode(cs, pc);
         origin_ins = ins_alloc();
-			  la_disasm(opcode, origin_ins);
+        la_disasm(opcode, origin_ins);
         INS = INS_alloc(pc, opcode, origin_ins);
         INS_translate(cs, INS);
         INS_instrument(INS);
@@ -159,13 +159,16 @@ reg_free_itemp(itemp)
 * 主要代码文件的内容
 
 （1） ins_inspection.c
-INS、BBl、TRACE级信息检查型API
+<br \>INS、BBl、TRACE级信息检查型API
 
 （2）ins_instrumentation.c
-INS、BBL、TRACE、RTN级插桩型API
+<br \>INS、BBL、TRACE、RTN级插桩型API
 
 （3）symbols.c
-RTN、IMG级信息检查型API
+<br \>RTN、IMG级信息检查型API
+
+（5）loader.c
+<br \>加载插桩工具
 
 （4）pin_state.h
 ```c
@@ -178,6 +181,3 @@ void TRACE_instrument(TRACE trace);
 //申明IMG级插桩函数
 void IMG_instrument(IMG img);
 ```
-
-（5）loader.c
-加载插桩工具
