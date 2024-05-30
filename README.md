@@ -106,11 +106,8 @@ IMG级API是以二进制可执行文件为插桩对象设计实现的API，每�
 
 | 仓库          | 仓库地址                                                     |
 | ------------- | ------------------------------------------------------------ |
-| 本项目主仓库  | https://gitlab.eduxiji.net/202318123111334/proj134-cfs-based-userspace-scheduler/ |
-| COS kernel    | https://github.com/shootfirst/cos_kernel                     |
-| COS userspace | https://gitlab.eduxiji.net/202318123111334/cos_userspace     |
-| EXT kernel    | https://gitlab.eduxiji.net/202318123111334/ext-kernel        |
-| EXT userspace | https://gitlab.eduxiji.net/202318123111334/ext-userspace     |
+| 本项目主仓库  | https://gitlab.eduxiji.net/T202410358992583/project2210132-232208 |
+
 
 
 ## 参考资料
