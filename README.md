@@ -75,8 +75,8 @@ IMG级API是以二进制可执行文件为插桩对象设计实现的API，每�
 #### INS级
 
 ✅ VOID INS_InsertCall(INS INS, IPOINT action, AFUNPTR funptr, ...)
-✅ VOID INS_InsertPredicatedCall (INS ins, IPOINT ipoint, AFUNPTR funptr,...)
-✅ VOID INS_InsertIfCall (INS ins, IPOINT action, AFUNPTR funptr,...)
+<br />✅ VOID INS_InsertPredicatedCall (INS ins, IPOINT ipoint, AFUNPTR funptr,...)
+<br />✅ VOID INS_InsertIfCall (INS ins, IPOINT action, AFUNPTR funptr,...)
 ✅ VOID INS_InsertThenCall (INS ins, IPOINT action, AFUNPTR funptr,...)
 ✅ VOID INS_InsertIfPredicatedCall (INS ins, IPOINT action, AFUNPTR funptr,...)
 ✅ VOID INS_InsertThenPredicatedCall (INS ins, IPOINT action, AFUNPTR funptr,...)
