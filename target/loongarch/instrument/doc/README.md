@@ -1,6 +1,6 @@
-# XXX README
+# README
 
-XXX 是一个开源的龙架构平台（LoongArch）的用户态的动态二进制插桩框架。
+本项目是一个开源的龙架构平台（LoongArch）的用户态的动态二进制插桩框架。
 
 该软件基于QEMU开发，并且实现了插桩框架
 [Intel Pin](https://www.intel.com/content/www/us/en/developer/articles/tool/pin-a-dynamic-binary-instrumentation-tool.html)
