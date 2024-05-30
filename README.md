@@ -12,10 +12,10 @@
 
 ## 文档
 
-* **[初赛项目文档](doc/决赛项目文档.pdf)**
-* **[代码结构](doc/environment.md)**
-* **[插桩工具教程](doc/run_test.md)**
-* **[框架编译和使用](record/Dev-Timeline/)**
+* **[初赛项目文档](target/loongarch/instrument/doc/code_structure.md)**
+* **[代码结构](target/loongarch/instrument/doc/code_structure.md)**
+* **[插桩工具教程](target/loongarch/instrument/doc/eazy_pintool.mddoc/run_test.md)**
+* **[框架编译和使用](target/loongarch/instrument/doc/how_to_build.md)**
 
 
 ## 项目简介
