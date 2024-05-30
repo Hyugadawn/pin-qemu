@@ -133,7 +133,7 @@ IMG级API是以二进制可执行文件为插桩对象设计实现的API，每�
 - [x] BOOL INS_OperandIsImplicit (INS ins, UINT32 n)
 - [x] BOOL INS_RegIsImplicit (INS ins, REG reg)
 - [x] BOOL INS_IsAddedForFunctionReplacement (INS ins)
-- [x] BOOL INS_ChangeReg (const INS ins, const REG old_reg, const REG new_reg, const BOOL as_read)
+- [s] BOOL INS_ChangeReg (const INS ins, const REG old_reg, const REG new_reg, const BOOL as_read)
 #### BBL级
 
 - [x] 
