@@ -138,24 +138,65 @@ IMG级API是以二进制可执行文件为插桩对象设计实现的API，每�
 
 #### BBL级
 
-- [x] 
-
-
+- [x] VOID BBL_InsertCall(BBL bbl, IPOINT action, AFUNPTR funptr, ...)
+- [x] VOID BBL_InsertIfCall (BBL bbl, IPOINT action, AFUNPTR funptr,...)
+- [x] VOID BBL_InsertThenCall (BBL bbl, IPOINT action, AFUNPTR funptr,...)
+- [x] UINT32 BBL_NumIns(BBL bbl)
+- [x] INS BBL_InsHead(BBL x)
+- [x] INS BBL_InsTail(BBL x)
+- [x] BBL BBL_Next(BBL x)
+- [x] BBL BBL_Prev(BBL x)
+- [x] BOOL BBL_Valid(BBL x)
+- [x] BOOL BBL_Original(BBL bbl)
+- [x] ADDRINT BBL_Address(BBL x)
+- [x] USIZE BBL_Size(BBL x)
+- [x] BOOL BBL_HasFallThrough(BBL x)
 
 #### TRACE级
 
-- [x] 
-
-
+- [x] VOID TRACE_AddInstrumentFunction(TRACE_INSTRUMENT_CALLBACK fun, VOID *val);
+- [x] VOID TRACE_InsertCall(TRACE trace, IPOINT action, AFUNPTR funptr, ...)
+- [x] VOID TRACE_InsertIfCall (TRACE trace, IPOINT action, AFUNPTR funptr,...)
+- [x] VOID TRACE_InsertThenCall (TRACE trace, IPOINT action, AFUNPTR funptr,...)
+- [x] BBL TRACE_BblHead(TRACE trace)
+- [x] BBL TRACE_BblTail(TRACE trace)
+- [x] UINT32 TRACE_NumBbl(TRACE trace)
+- [x] UINT32 TRACE_NumIns(TRACE trace)
+- [x] ADDRINT TRACE_Address(TRACE trace)
+- [x] USIZE TRACE_Size(TRACE trace)
+- [x] RTN TRACE_Rtn(TRACE trace)
+- [x] BOOL TRACE_HasFallThrough (TRACE trace)
 
 #### RTN级
-
-- [x] 
+- [x] VOID RTN_InsertCall(RTN rtn, IPOINT action, AFUNPTR funptr, ...)
+- [x] IMG RTN_Img(RTN rtn)
+- [x] RTN RTN_Next(RTN rtn)
+- [x] RTN RTN_Prev(RTN rtn)
+- [x] RTN RTN_Invaild(void
+- [x] BOOL RTN_Valid(RTN rtn)
+- [x] const char * RTN_Name(RTN rtn)
+- [x] UINT32 RTN_Id(RTN rtn)
+- [x] USIZE RTN_Size(RTN rtn)
+- [x] const CHAR *RTN_FindNameByAddress(ADDRINT address)
+- [x] RTN RTN_FindByAddress(ADDRINT address)
+- [x] RTN RTN_FindByName(IMG img, const CHAR *name)
+- [x] VOID RTN_Open(RTN rtn)
+- [x] VOID RTN_Close(RTN rtn)
+- [x] UINT32 RTN_NumIns(RTN rtn)
+- [x] ADDRINT RTN_Address(RTN rtn)
 
 #### IMG级
 
-- [x] 
-
+- [x] VOID IMG_AddInstrumentFunction(IMAGECALLBACK fun, VOID *val)
+- [x] IMG IMG_Next(IMG img)
+- [x] IMG IMG_Prev(IMG img)
+- [x] IMG IMG_Invalid(void)
+- [x] BOOL IMG_Valid(IMG img)
+- [x] RTN IMG_RtnHead(IMG img)
+- [x] RTN IMG_RtnTail(IMG img)
+- [x] const char * IMG_Name(IMG img)
+- [x] UINT32 IMG_Id(IMG img)
+- [x] IMG IMG_FindImgById(UINT32)
 
 
 ## 代码仓库
