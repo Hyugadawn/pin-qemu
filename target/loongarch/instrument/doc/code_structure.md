@@ -157,7 +157,7 @@ reg_free_itemp(itemp)
 
 * target/loongarch/pin/pintools中包含了编写的插桩工具
 * 主要代码文件的内容
-
+```
 （1） ins_inspection.c
 <br />`INS、BBl、TRACE级信息检查型API`
 
@@ -167,10 +167,10 @@ reg_free_itemp(itemp)
 （3）symbols.c
 <br />`RTN、IMG级信息检查型API`
 
-（5）loader.c
+（4）loader.c
 <br />`加载插桩工具`
 
-（4）pin_state.h
+（5）pin_state.h
 ```c
 PIN_STATE PIN_state //插桩状态结构体
 PIN_INSTRU_CONTEXT PIN_instru_ctx //插桩标志结构体
@@ -180,4 +180,5 @@ void INS_instrument(INS ins);
 void TRACE_instrument(TRACE trace);
 //申明IMG级插桩函数
 void IMG_instrument(IMG img);
+```
 ```
