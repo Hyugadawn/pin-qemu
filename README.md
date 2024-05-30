@@ -73,14 +73,13 @@ IMG级API是以二进制可执行文件为插桩对象设计实现的API，每�
 ## API实现情况
 
 #### INS级
+
 - [x] VOID INS_InsertCall(INS INS, IPOINT action, AFUNPTR funptr, ...)
 - [x] VOID INS_InsertPredicatedCall (INS ins, IPOINT ipoint, AFUNPTR funptr,...)
 - [x] VOID INS_InsertIfCall (INS ins, IPOINT action, AFUNPTR funptr,...)
 - [x] VOID INS_InsertThenCall (INS ins, IPOINT action, AFUNPTR funptr,...)
 - [x] VOID INS_InsertIfPredicatedCall (INS ins, IPOINT action, AFUNPTR funptr,...)
 - [x] VOID INS_InsertThenPredicatedCall (INS ins, IPOINT action, AFUNPTR funptr,...)
-
-
 
 - [x] INS INS_Next(INS x)
 - [x] INS INS_Prev(INS x)
@@ -136,6 +135,7 @@ IMG级API是以二进制可执行文件为插桩对象设计实现的API，每�
 - [x] BOOL INS_RegIsImplicit (INS ins, REG reg)
 - [x] BOOL INS_IsAddedForFunctionReplacement (INS ins)
 - [x] BOOL INS_ChangeReg (const INS ins, const REG old_reg, const REG new_reg, const BOOL as_read)
+
 #### BBL级
 
 - [x] 
