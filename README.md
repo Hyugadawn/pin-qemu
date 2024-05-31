@@ -12,7 +12,7 @@
 
 ## 文档
 
-* **[初赛项目文档](target/loongarch/instrument/doc/code_structure.md)**
+* **[初赛项目文档](./doc-readme/%E5%9F%BA%E4%BA%8EQemu%E7%9A%84%E9%BE%99%E6%9E%B6%E6%9E%84%E9%AB%98%E6%80%A7%E8%83%BD%E6%8F%92%E6%A1%A9%E5%B7%A5%E5%85%B7.pdf)**
 * **[代码结构](target/loongarch/instrument/doc/code_structure.md)**
 * **[插桩工具教程](target/loongarch/instrument/doc/eazy_pintool.md)**
 * **[框架编译和使用](target/loongarch/instrument/doc/how_to_build.md)**
