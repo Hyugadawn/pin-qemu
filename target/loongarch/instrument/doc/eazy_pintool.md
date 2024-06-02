@@ -1,6 +1,5 @@
 # 简单易懂的pintool教程
 
-{{TODO 添加编译命令演示，添加插桩工具的输出示例}}
 
 根据Intel Pin插桩框架API编写的插桩工具称为pintool。Pin的插桩API十分友好，可以简单高效地编写插桩工具pintool。
 
