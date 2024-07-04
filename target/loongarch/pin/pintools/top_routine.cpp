@@ -20,7 +20,7 @@ using std::vector;
 /* Commandline Switches */
 /* ===================================================================== */
 // 修改输出文件路径
-string OutFilePath = "/home/dq/routinetop.txt";
+string OutFilePath = "/home/myb/pintool_out/routinetop.txt";
 // print histogram after every n calls
 UINT64 OutThreshold = 200;
 // minimum count for opcode to show

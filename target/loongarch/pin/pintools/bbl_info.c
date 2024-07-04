@@ -41,7 +41,7 @@ static INT32 Usage(void)
 
 int main(int argc, char* argv[])
 {
-    checkBblApi = fopen("/home/dq/my_code/pintool_out/bbl_mix/bbl_info.txt", "w");
+    checkBblApi = fopen("/home/myb/pintool_out/bbl_mix/bbl_info.txt", "w");
 
     if (PIN_Init(argc, argv)) return Usage();
 

@@ -22,7 +22,7 @@ using std::string;
 /* Options */
 /* ===================================================================== */
 // 在此修改输出文件路径
-string OutFilePath = "/home/dq/my_code/pintool_out/ins_mix/ldstmix.txt";
+string OutFilePath = "/home/myb/pintool_out/ins_mix/ldstmix.txt";
 
 /* ===================================================================== */
 /* Print Help Message                                                    */

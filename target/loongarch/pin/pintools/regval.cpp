@@ -22,7 +22,7 @@ using std::string;
 /////////////////////
 // 修改输出文件路径
 ofstream OutFile;
-string OutFilePath = "/home/dq/my_code/pintool_out/reg_mix/regval.txt";
+string OutFilePath = "/home/myb/pintool_out/reg_mix/regval.txt";
 // We don't want to print the registers too many times, so we put placeholders in the application to tell the tool
 // when to start and stop printing.
 volatile bool printRegsNow = false;

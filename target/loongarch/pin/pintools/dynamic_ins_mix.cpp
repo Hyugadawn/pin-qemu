@@ -234,7 +234,7 @@ int main(int argc, CHAR* argv[])
         return Usage();
     }
     // 此处修改输出文件路径
-    string OutputFilePath = "/home/dq/my_code/pintool_out/ins_mix/dynamic_ins_mix.txt";
+    string OutputFilePath = "/home/myb/pintool_out/ins_mix/dynamic_ins_mix.txt";
 
     out = new std::ofstream(OutputFilePath);
 

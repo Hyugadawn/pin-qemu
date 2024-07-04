@@ -38,7 +38,7 @@ UINT32 ThresholdMiss = 100;
 UINT32 CacheSize = 128;
 UINT32 LineSize = 64;
 UINT32 CacheAssociativity = 8;
-std::string OutputFile = "/home/dq/my_code/dcache_out/data_cache_result_10.txt";
+std::string OutputFile = "/home/myb/pintool_out/dcache_out/data_cache_result_10.txt";
 /* ===================================================================== */
 /* Print Help Message                                                    */
 /* ===================================================================== */

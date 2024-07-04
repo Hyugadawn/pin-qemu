@@ -75,7 +75,7 @@ static INT32 Usage(void)
 
 int main(int argc, char* argv[])
 {
-    bbl_exec_time_record = fopen("/home/dq/my_code/pintool_out/bbl_mix/bbl_time_record.txt", "w");
+    bbl_exec_time_record = fopen("/home/myb/pintool_out/bbl_mix/bbl_time_record.txt", "w");
 
     PIN_InitSymbols();
 

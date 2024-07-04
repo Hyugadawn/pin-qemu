@@ -67,7 +67,7 @@ static INT32 Usage(void)
 int main(int argc, char* argv[])
 {
     // 此处修改输出文件路径
-    bbl_info_out = fopen("/home/dq/my_code/pintool_out/bbl_mix/bbl_ctrlFlow.txt", "w");
+    bbl_info_out = fopen("/home/myb/pintool_out/bbl_mix/bbl_ctrlFlow.txt", "w");
 
     PIN_InitSymbols();
 

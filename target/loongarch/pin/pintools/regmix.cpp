@@ -13,7 +13,7 @@ using std::string;
 
 /* ===================================================================== */
 // 修改输出文件路径
-string OutFilePath = "/home/dq/my_code/pintool_out/reg_mix/reg_mix.txt";
+string OutFilePath = "/home/myb/pintool_out/reg_mix/reg_mix.txt";
 /* ===================================================================== */
 
 #define reg_rw_w(rw) (unsigned char)(rw & 0xff)

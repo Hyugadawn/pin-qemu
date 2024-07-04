@@ -22,7 +22,7 @@ static INT32 Usage()
 // nibble用于筛选指令类型，默认为否，表示不分析共享库中的控制流变化
 const INT32 nibble = -1;
 // 修改输出文件路径
-std::string OutputPath = "/home/dq/my_code/pintool_out/control_flow/edge_count.txt";
+std::string OutputPath = "/home/myb/pintool_out/control_flow/edge_count.txt";
 
 class COUNTER
 {

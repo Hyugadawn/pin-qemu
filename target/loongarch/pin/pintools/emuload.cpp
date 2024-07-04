@@ -15,7 +15,7 @@ using std::setw;
 using std::hex;
 
 // 修改输出文件路径
-std::OutFilePath = "/home/dq/my_code/pintool_out/mem_access/emuload.txt";
+std::OutFilePath = "/home/myb/pintool_out/mem_access/emuload.txt";
 std::ofstream out;
 
 

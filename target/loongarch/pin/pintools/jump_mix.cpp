@@ -18,7 +18,7 @@ using std::string;
 /* Commandline Switches */
 /* ===================================================================== */
 // 在此修改输出文件路径
-string OutputFilePath = "/home/dq/my_code/pintool_out/control_flow/jump_mix.txt";
+string OutputFilePath = "/home/myb/pintool_out/control_flow/jump_mix.txt";
 /* ===================================================================== */
 /* Print Help Message                                                    */
 /* ===================================================================== */

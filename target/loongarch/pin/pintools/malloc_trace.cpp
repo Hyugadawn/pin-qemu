@@ -33,7 +33,7 @@ std::ofstream TraceFile;
 /* Commandline Switches */
 /* ===================================================================== */
 // 设置输出文件路径
-string OutFilePath = "/home/dq/my_code/pintool_out/func_call/malloc_trace.txt";
+string OutFilePath = "/home/myb/pintool_out/func_call/malloc_trace.txt";
 /* ===================================================================== */
 /* Print Help Message                                                    */
 /* ===================================================================== */

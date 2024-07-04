@@ -22,8 +22,8 @@ UINT32 count_trace = 0; // current trace number
 /* ===================================================================== */
 
 // 这里输出两个文件，一个记录trace中的指令，另一个记录执行顺序
-string OutFilePath1 = "/home/dq/my_code/pintool_out/control_flow/trace_info.txt";
-string OutFilePath2 = "/home/dq/my_code/pintool_out/control_flow/exec_order.txt";
+string OutFilePath1 = "/home/myb/pintool_out/control_flow/trace_info.txt";
+string OutFilePath2 = "/home/myb/pintool_out/control_flow/exec_order.txt";
 // no_compess为真时，仅记录trace指令，不记录执行顺序
 bool no_compess = 0;
 // KNOB< string > KnobOutputFile(KNOB_MODE_WRITEONCE, "pintool", "o", "trace.out", "specify trace file name");

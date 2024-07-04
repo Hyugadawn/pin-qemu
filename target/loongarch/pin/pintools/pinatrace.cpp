@@ -19,7 +19,7 @@ using std::setw;
 
 std::ofstream TraceFile;
 // 修改输出文件路径
-std::string OutputFilePath = "/home/dq/my_code/pintool_out/mem_access/pinatrace.txt";
+std::string OutputFilePath = "/home/myb/pintool_out/mem_access/pinatrace.txt";
 // 判断是否记录读取或写入内存的值
 BOOL OutputMemVal = 1;
 // std::vector<std::string> ins_info;

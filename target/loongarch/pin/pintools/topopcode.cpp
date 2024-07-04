@@ -22,7 +22,7 @@ using std::vector;
 /* ===================================================================== */
 
 
-string OutFilePath = "/home/dq/my_code/pintool_out/opcodetop.txt";
+string OutFilePath = "/home/myb/pintool_out/opcodetop.txt";
 // print histogram after every n BBLs
 UINT64 OutThreshold = 1000;
 // minimum count for opcode to show

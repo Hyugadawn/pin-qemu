@@ -20,7 +20,7 @@ std::ofstream TraceFile;
 /* Commandline Switches */
 /* ===================================================================== */
 // 设置输出文件路径，以及是否记录函数参数
-string OutFilePath = "/home/dq/my_code/pintool_out/func_call/call_trace.txt";
+string OutFilePath = "/home/myb/pintool_out/func_call/call_trace.txt";
 bool PrintArgs = false;
 
 /* ===================================================================== */
