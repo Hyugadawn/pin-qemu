@@ -77,6 +77,20 @@ void PIN_AddCpuExecExitFunction(CPU_EXEC_EXIT_CALLBACK fun, VOID *val)
     PIN_state.cpu_exec_exit_cb_val = val;
 }
 
+// multi threads
+void PIN_AddThreadStartFunction(THREAD_START_CALLBACK fun, VOID *val)
+{
+    PIN_state.thread_start_cb = fun;
+    PIN_state.thread_start_cb_val = val;
+}
+
+void PIN_AddThreadFiniFunction(THREAD_FINI_CALLBACK fun, VOID *val)
+{
+    PIN_state.thread_fini_cb = fun;
+    PIN_state.thread_fini_cb_val = val;
+}
+
+
 /* Parse Instrument Arguments
  * 解析IARG，记录到callback结构体
  * 只支持整数类型的参数，最多8个
@@ -749,6 +763,11 @@ static void set_iargs(const ANALYSIS_CALL *cb, INS INS, Ins *cur)
              * which has a low performance and low accuracy. What's the worse is 
              * every core has a Stable Counter, leads to a wrong counting. */
             INS_insert_ins_before(INS, cur, ins_create_2(LISA_RDTIME_D, arg_reg, reg_zero));
+            break;
+        case IARG_CONTEXT:
+        case IARG_CONST_CONTEXT:
+            temp_ctxt.env = current_cpu->env_ptr;
+            INS_load_imm64_before(INS, cur, arg_reg, (uint64_t)ctxt);
             break;
         case IARG_MULTI_MEMORYACCESS_EA:
         case IARG_MULTI_ELEMENT_OPERAND:

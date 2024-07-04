@@ -53,6 +53,25 @@ NAMES += trace_rtn
 NAMES += trace_bbl_count
 NAMES += trace_ifcall
 NAMES += trace_bbl_cx
+# update in July
+NAMES += bbl_ctrlflow
+NAMES += bbl_info
+NAMES += bbl_time_record
+NAMES += call_trace
+NAMES += data_cache_sim
+NAMES += dynamic_ins_mix
+NAMES += edge_cnt
+NAMES += emuload
+NAMES += jump_mix
+NAMES += ldstmix
+NAMES += malloc_trace
+NAMES += pinatrace
+NAMES += regmix
+NAMES += regval
+NAMES += top_routine
+NAMES += topopcode
+NAMES += trace_info
+
 
 SONAMES := $(addsuffix .so,$(addprefix lib,$(NAMES)))
 

@@ -21,6 +21,10 @@ struct PIN_STATE PIN_state = {
     /*glp*/
     //.rtn_cb = NULL,
     //.rtn_cb_val = NULL,
+    .thread_start_cb = NULL,
+    .thread_start_cb_val = NULL,
+    .thread_fini_cb = NULL,
+    .thread_fini_cb_val = NULL,
 };
 
 struct PIN_INSTRU_CONTEXT PIN_instru_ctx = {

@@ -29,6 +29,13 @@ struct PIN_STATE {
     /*glp*/
     //RTN_INSTRUMENT_CALLBACK rtn_cb;
     //VOID* rtn_cb_val;
+
+    /* myb */
+    // add for multi-threads
+    THREAD_START_CALLBACK thread_start_cb;
+    VOID* thread_start_cb_val;
+    THREAD_FINI_CALLBACK thread_fini_cb;
+    VOID* thread_fini_cb_val;
 };
 
 struct PIN_INSTRU_CONTEXT {
