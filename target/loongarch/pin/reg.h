@@ -3,6 +3,103 @@
 
 #include <stdbool.h>
 
+#ifdef REG_ZERO
+#undef REG_ZERO
+#endif
+#ifdef REG_RA
+#undef REG_RA
+#endif
+#ifdef REG_TP
+#undef REG_TP
+#endif
+#ifdef REG_SP
+#undef REG_SP
+#endif
+#ifdef REG_A0
+#undef REG_A0
+#endif
+#ifdef REG_A1
+#undef REG_A1
+#endif
+#ifdef REG_A2
+#undef REG_A2
+#endif
+#ifdef REG_A3
+#undef REG_A3
+#endif
+#ifdef REG_A4
+#undef REG_A4
+#endif
+#ifdef REG_A5
+#undef REG_A5
+#endif
+#ifdef REG_A6
+#undef REG_A6
+#endif
+#ifdef REG_A7
+#undef REG_A7
+#endif
+#ifdef REG_T0
+#undef REG_T0
+#endif
+#ifdef REG_T1
+#undef REG_T1
+#endif
+#ifdef REG_T2
+#undef REG_T2
+#endif
+#ifdef REG_T3
+#undef REG_T3
+#endif
+#ifdef REG_T4
+#undef REG_T4
+#endif
+#ifdef REG_T5
+#undef REG_T5
+#endif
+#ifdef REG_T6
+#undef REG_T6
+#endif
+#ifdef REG_T7
+#undef REG_T7
+#endif
+#ifdef REG_T8
+#undef REG_T8
+#endif
+#ifdef REG_U0
+#undef REG_U0
+#endif
+#ifdef REG_FP
+#undef REG_FP
+#endif
+#ifdef REG_S0
+#undef REG_S0
+#endif
+#ifdef REG_S1
+#undef REG_S1
+#endif
+#ifdef REG_S2
+#undef REG_S2
+#endif
+#ifdef REG_S3
+#undef REG_S3
+#endif
+#ifdef REG_S4
+#undef REG_S4
+#endif
+#ifdef REG_S5
+#undef REG_S5
+#endif
+#ifdef REG_S6
+#undef REG_S6
+#endif
+#ifdef REG_S7
+#undef REG_S7
+#endif
+#ifdef REG_S8
+#undef REG_S8
+#endif
+
 typedef enum
 {
     REG_INVALID_ = 0,

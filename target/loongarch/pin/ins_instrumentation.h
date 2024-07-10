@@ -18,9 +18,6 @@ typedef VOID (*CPU_EXEC_ENTER_CALLBACK) (CPUState *cpu, TranslationBlock *tb);
 typedef VOID (*CPU_EXEC_EXIT_CALLBACK) (CPUState *cpu, TranslationBlock *last_tb, int tb_exit);
 typedef VOID (*IMAGECALLBACK) (IMG img, VOID *v);
 typedef VOID (*RTN_INSTRUMENT_CALLBACK) (RTN rtn, VOID *v);
-// for multi thread
-typedef VOID (*THREAD_START_CALLBACK) (THREADID threadIndex, CONTEXT *ctxt, INT32 flags, VOID *v);
-typedef VOID (*THREAD_FINI_CALLBACK) (THREADID threadIndex, CONTEXT *ctxt, INT32 flags, VOID *v);
 
 #ifdef __cplusplus
 extern "C" {

@@ -1,0 +1,1 @@
+[{"name": "threads", "version": "unknown", "compile_args": ["-pthread"], "link_args": ["-pthread"]}, {"name": "zlib", "version": "1.2.11", "compile_args": [], "link_args": ["/usr/lib64/libz.so"]}]
