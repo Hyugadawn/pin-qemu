@@ -1465,6 +1465,10 @@ TranslationBlock *tb_gen_code(CPUState *cpu,
     /* generate machine code */
     tb->jmp_reset_offset[0] = TB_JMP_RESET_OFFSET_INVALID;
     tb->jmp_reset_offset[1] = TB_JMP_RESET_OFFSET_INVALID;
+    //cx 2024.06
+    tb->jmp_reset_offset[2] = TB_JMP_RESET_OFFSET_INVALID;
+    tb->jmp_reset_offset[3] = TB_JMP_RESET_OFFSET_INVALID;
+    //
     tcg_ctx->tb_jmp_reset_offset = tb->jmp_reset_offset;
     if (TCG_TARGET_HAS_direct_jump) {
         tcg_ctx->tb_jmp_insn_offset = tb->jmp_target_arg;
@@ -1628,6 +1632,13 @@ TranslationBlock *tb_gen_code(CPUState *cpu,
     }
     if (tb->jmp_reset_offset[1] != TB_JMP_RESET_OFFSET_INVALID) {
         tb_reset_jump(tb, 1);
+    }
+    //cx 2024.06
+    if (tb->jmp_reset_offset[2] != TB_JMP_RESET_OFFSET_INVALID) {
+        tb_reset_jump(tb, 2);
+    }
+    if (tb->jmp_reset_offset[3] != TB_JMP_RESET_OFFSET_INVALID) {
+        tb_reset_jump(tb, 3);
     }
 
     /*
@@ -2073,12 +2084,22 @@ static gboolean tb_tree_stats_iter(gpointer key, gpointer value, gpointer data)
     if (tb->page_addr[1] != -1) {
         tst->cross_page++;
     }
+
+    //cx 2024.06
     if (tb->jmp_reset_offset[0] != TB_JMP_RESET_OFFSET_INVALID) {
         tst->direct_jmp_count++;
         if (tb->jmp_reset_offset[1] != TB_JMP_RESET_OFFSET_INVALID) {
             tst->direct_jmp2_count++;
         }
     }
+    //这里应该另外设置数据结构呢还是在这个的基础上再累加，question_cx
+    if (tb->jmp_reset_offset[2] != TB_JMP_RESET_OFFSET_INVALID) {
+        tst->direct_jmp_count++;
+        if (tb->jmp_reset_offset[3] != TB_JMP_RESET_OFFSET_INVALID) {
+            tst->direct_jmp2_count++;
+        }
+    }
+    
     return false;
 }
 

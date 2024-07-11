@@ -42,7 +42,7 @@ int la_decode(CPUState *cs, TranslationBlock *tb, int max_insns)
     TRACE trace = TRACE_alloc(pc);
     BBL bbl = BBL_alloc(pc);
     tr_data.trace = trace;
-    int change_context = 0;//GLP
+    //int change_context = 0;//GLP
 
     while (1) {
         /* Disassemble */
@@ -52,17 +52,20 @@ int la_decode(CPUState *cs, TranslationBlock *tb, int max_insns)
 
         /* Translate */
         INS INS = INS_alloc(pc, opcode, origin_ins);
-        INS_translate(cs, INS); // GLP 
+        //2024.6 cx
+        INS_translate(cs, INS, trace->nr_bbl); // GLP 
         INS_instrument(INS);
         ++ins_nr;
 
         /* Append exit */
         if (tr_data.is_jmp == TRANS_NEXT && ins_nr == max_insns) {
             tr_data.is_jmp = TRANS_TOO_MANY;
-            INS_append_exit(INS, 0);
+            //cx 2024.6
+            INS_append_exit(INS, 0, trace->nr_bbl);
         } 
-        else if (op_is_condition_branch(origin_ins->op) && change_context == 1) {
-            INS_append_exit(INS, 1); // GLP条件跳转也作为tb结束, tb_link第二个跳转出口 
+        else if (op_is_condition_branch(origin_ins->op)) {
+            //cx 2024.6
+            INS_append_exit(INS, 1,trace->nr_bbl); // GLP条件跳转也作为tb结束, tb_link第二个跳转出口 
         }
 
 
@@ -101,8 +104,8 @@ int la_decode(CPUState *cs, TranslationBlock *tb, int max_insns)
         {
             TRACE_append_BBL(trace, bbl);
             tr_data.is_jmp = TRANS_NEXT;
-            if(trace->nr_bbl == 2) change_context = 1; //GLP
-            if(trace->nr_bbl >= 3)
+            //if(trace->nr_bbl == 2) change_context = 1; //GLP
+            if(trace->nr_bbl >= 2)
                 break;
             bbl = BBL_alloc(pc);
         }
@@ -150,10 +153,13 @@ void la_relocation(CPUState *cs, const void *code_buf_rx)
     if (tb) {
         enable_tb_link = ((tb_cflags(tr_data.curr_tb) & CF_NO_GOTO_TB) == 0);
     }
-    enable_tb_link = false;
+    //enable_tb_link = false;
 
     /* uintptr_t cur_ins_pos = (uintptr_t)tb->tc.ptr; */
     uintptr_t cur = (uintptr_t)code_buf_rx;
+
+    //cx
+    int i = 0;//用于纪录当前是哪个BBL
 
     for (Ins *ins = tr_data.first_ins; ins != NULL; ins = ins->next) {
         /* 跳转指令重定向 */
@@ -168,15 +174,19 @@ void la_relocation(CPUState *cs, const void *code_buf_rx)
         }
 
         /* tb_link: 记录要patch的nop指令（或BCC）的地址 */
+        //cx 2024.6
         if (enable_tb_link) {
-            if (tr_data.jmp_ins[0] == ins) {
-                tb->jmp_target_arg[0] = cur - (uintptr_t)tb->tc.ptr;
-                tb->jmp_reset_offset[0] = cur - (uintptr_t)tb->tc.ptr + 4;
+            if (tr_data.jmp_ins[i][0] == ins) {
+                //cx 2024.06
+                int mid_int;
+                mid_int = i*2;
+                tb->jmp_target_arg[mid_int] = cur - (uintptr_t)tb->tc.ptr;//cx?到当前ins的一个offset?
+                tb->jmp_reset_offset[mid_int] = cur - (uintptr_t)tb->tc.ptr + 4;//
             }
-            if (tr_data.jmp_ins[1] == ins) {
+            if (tr_data.jmp_ins[i][1] == ins) {
                 LA_OPCODE op = ins->op;
                 if (op_is_condition_branch(op)) {
-                    int bcc_jmp_over;
+                    int bcc_jmp_over;//跳转指令跳过了多少
                     if (LISA_BEQZ <= op && op <= LISA_BCNEZ) {
                         bcc_jmp_over = ins->opnd[1].val;
                     } else if (LISA_BEQ <= op && op <= LISA_BGEU) {
@@ -184,14 +194,18 @@ void la_relocation(CPUState *cs, const void *code_buf_rx)
                     } else {
                         lsassert(0);
                     }
-
-                    tb->jmp_target_arg[1] = cur - (uintptr_t)tb->tc.ptr;
+                    int mid_int;
+                    mid_int = i*2+1;
+                    tb->jmp_target_arg[mid_int] = cur - (uintptr_t)tb->tc.ptr;
                     /* 恢复时让其跳转到nop的位置 */
-                    tb->jmp_reset_offset[1] = cur - (uintptr_t)tb->tc.ptr + 4 * bcc_jmp_over;
+                    tb->jmp_reset_offset[mid_int] = cur - (uintptr_t)tb->tc.ptr + 4 * bcc_jmp_over;
                 } else {
-                    tb->jmp_target_arg[1] = cur - (uintptr_t)tb->tc.ptr;
-                    tb->jmp_reset_offset[1] = cur - (uintptr_t)tb->tc.ptr + 4;
+                    int mid_int;
+                    mid_int = i*2+1;
+                    tb->jmp_target_arg[mid_int] = cur - (uintptr_t)tb->tc.ptr;
+                    tb->jmp_reset_offset[mid_int] = cur - (uintptr_t)tb->tc.ptr + 4;
                 }
+                i++;//cx 处理完jmp_ins[i][1]后必定是下一个块了  
             }
         }
         cur += 4;

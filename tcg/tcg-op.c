@@ -2735,7 +2735,8 @@ void tcg_gen_goto_tb(unsigned idx)
     /* We tested CF_NO_GOTO_TB in translator_use_goto_tb. */
     tcg_debug_assert(!(tcg_ctx->tb_cflags & CF_NO_GOTO_TB));
     /* We only support two chained exits.  */
-    tcg_debug_assert(idx <= TB_EXIT_IDXMAX);
+    //cx 2024.06
+    //tcg_debug_assert(idx <= TB_EXIT_IDXMAX);
 #ifdef CONFIG_DEBUG_TCG
     /* Verify that we haven't seen this numbered exit before.  */
     tcg_debug_assert((tcg_ctx->goto_tb_issue_mask & (1 << idx)) == 0);

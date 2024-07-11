@@ -380,13 +380,14 @@ cpu_tb_exec(CPUState *cpu, TranslationBlock *itb, int *tb_exit)
 #endif 
 
     trace_exec_tb_exit(last_tb, *tb_exit);
-
-    if (*tb_exit > TB_EXIT_IDX1) {
+    
+    //cx 这段是报错用的嘛 question_cx
+    //if (*tb_exit > TB_EXIT_IDX1) {
         /* We didn't start executing this TB (eg because the instruction
          * counter hit zero); we must restore the guest PC to the address
          * of the start of the TB.
          */
-        CPUClass *cc = CPU_GET_CLASS(cpu);
+        /*CPUClass *cc = CPU_GET_CLASS(cpu);
         qemu_log_mask_and_addr(CPU_LOG_EXEC, last_tb->pc,
                                "Stopped execution of TB chain before %p ["
                                TARGET_FMT_lx "] %s\n",
@@ -398,7 +399,7 @@ cpu_tb_exec(CPUState *cpu, TranslationBlock *itb, int *tb_exit)
             assert(cc->set_pc);
             cc->set_pc(cpu, last_tb->pc);
         }
-    }
+    }*/
 
     /*
      * If gdb single-step, and we haven't raised another exception,

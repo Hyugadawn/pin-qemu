@@ -65,7 +65,8 @@ typedef enum DisasType {
 typedef struct TRANSLATION_DATA {
     void *curr_tb;
     DisasType is_jmp;
-    Ins *jmp_ins[2];    // tb两个出口的B跳转指令，用于tb_link
+    //2024.6 cx
+    Ins *jmp_ins[2][2];    // tb两个出口的B跳转指令，用于tb_link
 
     /* ins list: 翻译过程中生成的指令链表 */
     int list_ins_nr;    // ins number in the ins list

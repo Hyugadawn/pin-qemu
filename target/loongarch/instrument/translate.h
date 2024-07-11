@@ -14,7 +14,8 @@ extern uint64_t context_switch_native_to_bt;
 int la_gen_prologue(CPUState *cs, TCGContext *tcg_ctx);
 int la_gen_epilogue(CPUState *cs, TCGContext *tcg_ctx);
 
-int INS_translate(CPUState *cs, INS INS);
-void INS_append_exit(INS INS, uint32_t index);
+//2024.6 cx
+int INS_translate(CPUState *cs, INS INS, int nr_bbl);
+void INS_append_exit(INS INS, uint32_t index,int nr_bbl);
 
 #endif

@@ -150,7 +150,7 @@ struct TranslationBlock {
        the code of this one. */
     uint16_t tb_next_offset[2]; /* offset of original jump target */
 #ifdef USE_DIRECT_JUMP
-    uint16_t tb_jmp_offset[2]; /* offset of jump instruction */
+    uint16_t tb_jmp_offset[4]; /* offset of jump instruction */
 #else
     unsigned long tb_next[2]; /* address of jump generated code */
 #endif

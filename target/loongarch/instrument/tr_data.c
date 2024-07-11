@@ -14,8 +14,12 @@ void tr_init(void *tb)
     TRANSLATION_DATA *t = &tr_data;
     t->curr_tb = tb;
     t->is_jmp = TRANS_NEXT;
-    t->jmp_ins[0] = NULL;
-    t->jmp_ins[1] = NULL;
+    //2024.6 cx
+    for(int i = 0;i < 2;i++)
+    {
+        t->jmp_ins[i][0] = NULL;
+        t->jmp_ins[i][1] = NULL;
+    }
 
     t->list_ins_nr = 0;
     t->first_ins = NULL;

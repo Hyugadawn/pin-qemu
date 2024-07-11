@@ -295,8 +295,8 @@ static void translate_pcaddi(CPUState *cs, INS INS, Ins *ins)
 
     INS_remove_ins(INS, ins);
 }
-
-static void translate_branch(CPUState *cs, INS INS, Ins *ins)
+//2024.6 cx
+static void translate_branch(CPUState *cs, INS INS, Ins *ins,int nr_bbl)
 {
     /* 直接跳转：
      * 1. 保存目标地址到 reg_target
@@ -315,7 +315,7 @@ static void translate_branch(CPUState *cs, INS INS, Ins *ins)
      *   ...
      */
     bool enable_tb_link = ((tb_cflags(tr_data.curr_tb) & CF_NO_GOTO_TB) == 0);
-    enable_tb_link = false;
+    //enable_tb_link = false;
     //tr_data.is_jmp = TRANS_NORETURN;
     /*new code*/
     if(op_is_tr_uncon_branch(ins->op))
@@ -380,7 +380,7 @@ static void translate_branch(CPUState *cs, INS INS, Ins *ins)
         INS_insert_ins_before(INS, ins, bcc);
 
         if (enable_tb_link) {
-            tr_data.jmp_ins[1] = bcc;
+            tr_data.jmp_ins[nr_bbl][1] = bcc;
         }
     }
 
@@ -402,7 +402,7 @@ static void translate_branch(CPUState *cs, INS INS, Ins *ins)
      * this nop ins will be patched when tb_link */
     if (enable_tb_link) {
         Ins *nop = ins_nop();
-        tr_data.jmp_ins[0] = nop;
+        tr_data.jmp_ins[nr_bbl][0] = nop;
         INS_insert_ins_before(INS, ins, nop);
     }
 
@@ -414,7 +414,10 @@ static void translate_branch(CPUState *cs, INS INS, Ins *ins)
     
     if (enable_tb_link) {
         //uint64_t current_bbl_addr = BBL_Address(TRACE_BblTail(tr_data.trace)) + 4;
-        INS_load_imm64_before(INS, ins, reg_ret, ((uint64_t)tr_data.curr_tb | 0));
+        //cx 2024.06
+        int jmp_tag;
+        jmp_tag = 2*nr_bbl;
+        INS_load_imm64_before(INS, ins, reg_ret, ((uint64_t)tr_data.curr_tb | jmp_tag));
     } else {
         INS_insert_ins_before(INS, ins, ins_create_3(LISA_ORI, reg_ret, reg_zero, reg_zero));
     }
@@ -651,7 +654,7 @@ static void INS_free_all_itemp(CPUState *cs, INS INS)
     }
 }
 
-int INS_translate(CPUState *cs, INS INS)
+int INS_translate(CPUState *cs, INS INS, int nr_bbl)
 {
     // FIXME 除了syscall还会有一些其他触发异常的指令，没有处理
     /* 
@@ -678,7 +681,7 @@ int INS_translate(CPUState *cs, INS INS)
     if (ins->op == LISA_PCADDI || ins->op == LISA_PCADDU12I || ins->op == LISA_PCADDU18I || ins->op == LISA_PCALAU12I) {
         translate_pcaddi(cs, INS, ins);
     } else if (op_is_direct_branch(ins->op)) {
-        translate_branch(cs, INS, ins);
+        translate_branch(cs, INS, ins,nr_bbl);
     } else if (op_is_indirect_branch(ins->op)) {
         translate_jirl(cs, INS, ins);
     } else if (ins->op == LISA_SYSCALL || ins->op == LISA_BREAK) {
@@ -695,12 +698,13 @@ int INS_translate(CPUState *cs, INS INS)
     return INS->len;
 }
 
-void INS_append_exit(INS INS, uint32_t index)
+//cx2024.6
+void INS_append_exit(INS INS, uint32_t index,int nr_bbl)
 {
     /* index indicate the jmp slot index */
     lsassert(index < 2);
     bool enable_tb_link = ((tb_cflags(tr_data.curr_tb) & CF_NO_GOTO_TB) == 0);
-    enable_tb_link = false;
+    //enable_tb_link = false;
     /* b context_switch_native_to_bt */
     Ins *end = ins_b(0);
     INS_append_ins(INS, end);  //前两个条件跳转不进行上下文跳转
@@ -710,7 +714,7 @@ void INS_append_exit(INS INS, uint32_t index)
         Ins *nop = ins_nop();
         /* for BCC's second exit, we'd like patch BCC first, rather than NOP */
         if (!op_is_condition_branch(INS->origin_ins->op)) {
-            tr_data.jmp_ins[index] = nop;
+            tr_data.jmp_ins[nr_bbl][index] = nop;
         }
         INS_insert_ins_before(INS, end, nop);
     }
@@ -721,6 +725,9 @@ void INS_append_exit(INS INS, uint32_t index)
     /* set return_value = tb_link ? (tb | slot_index) : 0 */
     if (enable_tb_link) {
         //uint64_t current_bbl_addr = BBL_Address(TRACE_BblTail(tr_data.trace)) + 4;  //(uint64_t)tr_data.curr_tb
+        //cx 2024.06
+        int jmp_tag;
+        jmp_tag = nr_bbl*2 + index;
         INS_load_imm64_before(INS, end, reg_ret, ((uint64_t)tr_data.curr_tb | index));
     } else {
         INS_insert_ins_before(INS, end, ins_create_3(LISA_ORI, reg_ret, reg_zero, 0));

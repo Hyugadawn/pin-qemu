@@ -508,9 +508,11 @@ struct TranslationBlock {
      * setting one of the jump targets (or patching the jump instruction). Only
      * two of such jumps are supported.
      */
-    uint16_t jmp_reset_offset[2]; /* offset of original jump target */
+    //cx 2024.06
+    uint16_t jmp_reset_offset[4]; /* offset of original jump target */
 #define TB_JMP_RESET_OFFSET_INVALID 0xffff /* indicates no jump generated */
-    uintptr_t jmp_target_arg[2];  /* target address or offset */
+//cx2024.6 cx
+    uintptr_t jmp_target_arg[4];  /* target address or offset */
 
     /*
      * Each TB has a NULL-terminated list (jmp_list_head) of incoming jumps.
