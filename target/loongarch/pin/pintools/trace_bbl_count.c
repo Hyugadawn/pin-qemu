@@ -4,19 +4,20 @@
 
 /* BBL */
 static uint64_t trace_exec_nr = 0;
+static uint64_t bbl_exec_nr = 0;
 static uint64_t ins_exec_nr = 0;
-static UINT64 icount = 0;
-static UINT64 bbl_count = 0;
+
 static UINT64 tr_c = 0;
 static UINT64 bbl_c = 0;
+
 static VOID docount(uint64_t ins_nr) {
-        ++trace_exec_nr;
+    trace_exec_nr ++;
     ins_exec_nr += ins_nr;
 }
 
 static VOID count()
 {
-        bbl_count++;
+    bbl_exec_nr ++;
 }
 
 static VOID Trace(TRACE trace, VOID* v)
@@ -35,8 +36,8 @@ static VOID Trace(TRACE trace, VOID* v)
 
 static VOID Fini(INT32 code, VOID* v)
 {
-    fprintf(stderr, "TRACE: %ld, INS: %ld\n", trace_exec_nr, ins_exec_nr);
-    fprintf(stderr, "BBL: %ld\n", bbl_count);
+    fprintf(stderr, "EXEC: TRACE: %ld, BBL: %ld, INS: %ld\n", trace_exec_nr, bbl_exec_nr, ins_exec_nr);
+
     fprintf(stderr, "TRACE: %ld, BBL: %ld\n", tr_c, bbl_c);
 }
 

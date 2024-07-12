@@ -53,6 +53,7 @@ NAMES += trace_rtn
 NAMES += trace_bbl_count
 NAMES += trace_ifcall
 NAMES += trace_bbl_cx
+NAMES += inlinetest
 
 SONAMES := $(addsuffix .so,$(addprefix lib,$(NAMES)))
 

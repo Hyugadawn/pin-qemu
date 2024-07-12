@@ -52,8 +52,12 @@ int la_decode(CPUState *cs, TranslationBlock *tb, int max_insns)
 
         /* Translate */
         INS INS = INS_alloc(pc, opcode, origin_ins);
+<<<<<<< HEAD
         //2024.6 cx
         INS_translate(cs, INS, trace->nr_bbl); // GLP 
+=======
+        INS_translate(cs, INS, change_context); // GLP 
+>>>>>>> 952b31a97fb54c7c2dc5e6329f09074423a4465e
         INS_instrument(INS);
         ++ins_nr;
 
@@ -153,7 +157,11 @@ void la_relocation(CPUState *cs, const void *code_buf_rx)
     if (tb) {
         enable_tb_link = ((tb_cflags(tr_data.curr_tb) & CF_NO_GOTO_TB) == 0);
     }
+<<<<<<< HEAD
     //enable_tb_link = false;
+=======
+    //enable_tb_link = false;  //GLP third fix
+>>>>>>> 952b31a97fb54c7c2dc5e6329f09074423a4465e
 
     /* uintptr_t cur_ins_pos = (uintptr_t)tb->tc.ptr; */
     uintptr_t cur = (uintptr_t)code_buf_rx;

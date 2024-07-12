@@ -5,18 +5,24 @@
 
 FILE *trace;
 
-const INT32 N = 2;
+const INT32 N = 2000;
+const INT32 M = 500;
 
 INT32 icount = N;
 
-INT32 ins_cnt = 0;
-VOID ICount()
+/*
+VOID IpSample(VOID *ip)
 {
-    ++ins_cnt;
-    printf("ins_cnt: %d\n", ins_cnt);
+    --icount;
+    if (icount == 0)
+    {
+        fprintf(trace, "%p\n", ip);
+        icount = N + rand() % M;
+    }
 }
+*/
 
-ADDRINT CountDown()
+inline ADDRINT CountDown()
 {
     --icount;
     return (icount == 0);
@@ -26,16 +32,17 @@ ADDRINT CountDown()
 // the icount will be reset to a random number between N and N+M.
 VOID PrintIp(VOID* ip)
 {
-    printf("than called , ip=%p\n", ip);
-    fprintf(trace, "%p\n", ip);
 
+    fprintf(trace, "%p\n", ip);
+    
     // Prepare for next period
-    icount = N;
+    icount = N + rand()%M ;
 }
+
 
 VOID Instruction(INS ins, VOID* v)
 {
-    INS_InsertCall(ins, IPOINT_BEFORE, (AFUNPTR)ICount, IARG_END);
+    //INS_InsertCall(ins, IPOINT_BEFORE, (AFUNPTR)IpSample, IARG_END);
 
     INS_InsertIfCall(ins, IPOINT_BEFORE, (AFUNPTR)CountDown, IARG_END);
 
